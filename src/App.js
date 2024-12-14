@@ -13,7 +13,6 @@ function App() {
   return (
     <ChakraProvider>
       <AuthProvider>
-        <Router>
           <Routes>
             <Route path="/login" element={<Login />} />
             <Route
@@ -25,7 +24,6 @@ function App() {
               }
             />
           </Routes>
-        </Router>
       </AuthProvider>
     </ChakraProvider>
   );
