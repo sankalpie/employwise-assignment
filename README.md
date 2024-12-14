@@ -1,70 +1,62 @@
-# Getting Started with Create React App
+# The application is deployed here
+https://employwise-assignment-8liy.onrender.com
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+# User Management Application
 
-In the project directory, you can run:
+This project is a React-based user management application with features for login, fetching user data, viewing, editing, and deleting users. 
+The endpoint for authentication is called using POST and the token received is stored in localStorage, I have implemented an AuthContext for providing the login function, logout function and the value of the token. If there is a token only then we go to the `<UsersList/>` otherwise we `<Navigate to="/login"/>`
 
-### `npm start`
+## Features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### 1. **Authentication**
+- Users can log in by providing their email and password.
+- Authentication is validated using a POST request:
+  - **Endpoint**: `POST https://reqres.in/api/login`
+  - **Request Body**:
+    ```json
+    {
+      "email": "eve.holt@reqres.in",
+      "password": "cityslicka"
+    }
+    ```
+  - **Response**:
+    ```json
+    {
+      "token": "QpwL5tke4Pnpja7X4"
+    }
+    ```
+- The token is stored in `localStorage` for persistent sessions.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### 2. **Protected Routes**
+- Users can only access the `/users` route if they are authenticated.
+- Unauthenticated users are redirected to the `/login` page.
+- Token validation is performed for every route.
 
-### `npm test`
+### 3. **User List**
+- Displays a paginated list of users fetched from an API.
+  - **Endpoint**: `GET https://reqres.in/api/users?page={page}`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 4. **Edit User**
+- Clicking "Edit" on a user card opens a modal with a pre-filled form to update user details.
+- Allows editing `first_name`, `last_name`, and `email`.
+- Updates are sent via:
+  - **Endpoint**: `PUT https://reqres.in/api/users/{id}`
+  - **Request Body**:
+    ```json
+    {
+      "first_name": "UpdatedName",
+      "last_name": "UpdatedLastName",
+      "email": "updated.email@example.com"
+    }
+    ```
 
-### `npm run build`
+### 5. **Delete User**
+- Clicking "Delete" removes the user from the list.
+- Deletion is performed via:
+  - **Endpoint**: `DELETE https://reqres.in/api/users/{id}`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### 6. **UI Feedback**
+- Success or error messages are displayed as TOASTS using `Chakra UI`'s `useToast`.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+---
