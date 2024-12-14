@@ -13,8 +13,9 @@ function App() {
   return (
     <ChakraProvider>
       <AuthProvider>
+        
           <Routes>
-            <Route path="/" element={<Login/>}/>
+            <Route path="/" element={<Navigate to="/login" />} />
             <Route path="/login" element={<Login />} />
             <Route
               path="/users"
@@ -25,6 +26,7 @@ function App() {
               }
             />
           </Routes>
+        
       </AuthProvider>
     </ChakraProvider>
   );
